@@ -1,160 +1,74 @@
-# Turborepo starter
+# Decen Uptime 🌐
 
-This Turborepo starter is maintained by the Turborepo core team.
+**Decen Uptime** is a decentralized website monitoring platform. Unlike traditional centralized uptime monitors that check your site from a handful of fixed data centers, Decen Uptime leverages a global network of community-run "checkers" (validators) to provide a true, distributed view of your website's availability and performance.
 
-## Using this example
+> ⚠️ **Project Status:** This project is currently under development.
 
-Run the following command:
+## 🚀 The Vision
 
-```sh
-npx create-turbo@latest
-```
+In a centralized system, if your monitoring server in New York says your site is up, you only know it's up for New York. But what about users in Tokyo, London, or Mumbai? 
 
-## What's inside?
+Decen Uptime turns any machine into a checker. This allows for:
+- **Global Coverage:** Monitor your site from thousands of unique residential and commercial IPs worldwide.
+- **Unbiased Data:** No more "false positives" from data center network issues.
+- **Decentralized Trust:** Verification of uptime by multiple independent nodes.
 
-This Turborepo includes the following packages/apps:
+## 🏗️ Architecture
 
-### Apps and Packages
+This project is built as a monorepo using [Turborepo](https://turbo.build/) and [Bun](https://bun.sh/).
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Apps
+- **`apps/api`**: Express.js REST API that handles user registrations, website management, and data aggregation.
+- **`apps/frontend`**: Next.js dashboard where users can manage their monitors and view global uptime stats.
+- **`apps/hub`**: (In Development) The central coordination layer that distributes monitoring tasks to validators.
+- **`apps/validator`**: (In Development) The client software that anyone can run to become a part of the monitoring network.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Packages
+- **`packages/db`**: Shared database layer using [Prisma](https://www.prisma.io/) and PostgreSQL.
+- **`packages/ui`**: Shared React component library.
+- **`packages/typescript-config`**: Shared TypeScript configurations.
+- **`packages/eslint-config`**: Shared ESLint configurations.
 
-### Utilities
+## 🛠️ Tech Stack
 
-This Turborepo has some additional tools already setup for you:
+- **Framework:** [Next.js](https://nextjs.org/) (Frontend)
+- **Runtime:** [Bun](https://bun.sh/)
+- **Backend:** Node.js / Express
+- **Database:** PostgreSQL with [Prisma ORM](https://www.prisma.io/)
+- **Monorepo Tooling:** [Turborepo](https://turbo.build/)
+- **Styling:** Tailwind CSS & Framer Motion
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## 🚦 Getting Started
 
-### Build
+### Prerequisites
+- [Bun](https://bun.sh/) installed on your machine.
+- A PostgreSQL instance.
 
-To build all apps and packages, run the following command:
+### Installation
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/decen-uptime.git
+   cd decen-uptime
+   ```
 
-```sh
-cd my-turborepo
-turbo build
-```
+2. Install dependencies:
+   ```bash
+   bun install
+   ```
 
-Without global `turbo`, use your package manager:
+3. Set up environment variables:
+   Create a `.env` file in `packages/db` and `apps/api` with your `DATABASE_URL`.
 
-```sh
-cd my-turborepo
-npx turbo build
-bun exec turbo build
-bun exec turbo build
-```
+4. Run the development server:
+   ```bash
+   bun run dev
+   ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## 🤝 Contributing
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+We are in early development! If you're interested in decentralized infrastructure and want to contribute, feel free to open an issue or submit a PR.
 
-```sh
-turbo build --filter=docs
-```
+## 📄 License
 
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-bun exec turbo build --filter=docs
-bun exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-bun exec turbo dev
-bun exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-bun exec turbo dev --filter=web
-bun exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-bun exec turbo login
-bun exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-bun exec turbo link
-bun exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
-# decentralized_uptime
+[MIT](./LICENSE)
