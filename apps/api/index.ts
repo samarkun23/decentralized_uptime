@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json())
 
 app.post("api/v1/website", authMiddleware, async (req, res) => {
-    const userId = req.userId;
+    const userId = req.userId!;
     const { url } = req.body;
 
     const data = await prismaClient.website.create({
@@ -47,6 +47,9 @@ app.get("/api/v1/websites", authMiddleware, async (req, res) => {
         where: {
             userId,
             disable: false
+        },
+        include: {
+            ticks: true
         }
     })
 
@@ -64,7 +67,7 @@ app.delete("/api/v1/website/", authMiddleware, async (req, res) => {
             userId
         },
         data: {
-            disabled: true
+            disable: true
         }
     })
 
@@ -73,4 +76,4 @@ app.delete("/api/v1/website/", authMiddleware, async (req, res) => {
     })
 })
 
-app.listen(3000)
+app.listen(8080)
